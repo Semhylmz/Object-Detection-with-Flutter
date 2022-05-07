@@ -6,7 +6,7 @@ The application gives an introduction about how to use it with voice on first us
 
 After the user touches the top of the screen, that is, the microphone, and says the object he wants to search for with a voice command, the camera is opened and the searched object is tried to be found. If the searched object is found, a return is provided as 'the searched object was found'.
 
-When the bottom of the screen is touched, the camera starts and the name of the objects around is told to the user.
+When the bottom of the screen is touched, the camera starts and the name of the objects around is told to the user. To return to the main screen, simply click the middle of the screen.
 
 Feel free to contribute to the project and provide feedback by sending a pull request.
 
