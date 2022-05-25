@@ -42,25 +42,30 @@ class _BndBoxState extends State<BndBox> {
         var _h = re["rect"]["h"];
         var scaleW, scaleH, x, y, w, h;
 
-        if (widget.search == "${re['detectedClass']}") {
-          //widget._textToSpeech.speak("${re['detectedClass'] + 'finded'}");
-
-          _res.add(re['detectedClass']);
-          setState(() {
-            _finded = true;
-          });
-          if (_finded == true) {
+        if (widget.search.isNotEmpty) {
+          if (widget.search == "${re['detectedClass']}") {
             widget._textToSpeech.speak("${re['detectedClass'] + 'finded'}");
-            Navigator.pop(
+
+            //_res.add(re['detectedClass']);
+            setState(() {
+              _finded = true;
+            });
+            if (_finded == true) {
+              widget._textToSpeech.speak("${re['detectedClass'] + 'finded'}");
+              const Duration(seconds: 3);
+              _finded = false;
+              /*Navigator.pop(
               context,
               MaterialPageRoute(
                 builder: (context) => HomePage(cameras),
               ),
-            );
+            );*/
+            }
           }
+        } else {
+          widget._textToSpeech.speak("${re['detectedClass']}");
+          const Duration(seconds: 3);
         }
-
-        //widget._textToSpeech.speak("${re['detectedClass'] + "finded"}");
 
         if (widget.screenH / widget.screenW >
             widget.previewH / widget.previewW) {
