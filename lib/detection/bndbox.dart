@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:object_detection/views/home.dart';
 import 'dart:math' as math;
-import '../main.dart';
 import '../tts/text_to_speech.dart';
 
 class BndBox extends StatefulWidget {
@@ -12,12 +10,12 @@ class BndBox extends StatefulWidget {
   final int previewW;
   final double screenH;
   final double screenW;
-
-  //final String model;
   final String search;
 
   BndBox(this.results, this.previewH, this.previewW, this.screenH, this.screenW,
-      this.search);
+      this.search,
+      {Key? key})
+      : super(key: key);
 
   @override
   State<BndBox> createState() => _BndBoxState();
@@ -25,7 +23,6 @@ class BndBox extends StatefulWidget {
 
 class _BndBoxState extends State<BndBox> {
   bool _finded = false;
-  late final List<dynamic> _res;
   final TextToSpeech _textToSpeech = TextToSpeech();
 
   @override
@@ -41,26 +38,31 @@ class _BndBoxState extends State<BndBox> {
         var _y = re["rect"]["y"];
         var _h = re["rect"]["h"];
         var scaleW, scaleH, x, y, w, h;
+        var confidence = double.parse("${re['confidenceInClass'] * 100}");
 
-        if (widget.search == "${re['detectedClass']}") {
-          //widget._textToSpeech.speak("${re['detectedClass'] + 'finded'}");
-
-          _res.add(re['detectedClass']);
-          setState(() {
-            _finded = true;
-          });
-          if (_finded == true) {
-            widget._textToSpeech.speak("${re['detectedClass'] + 'finded'}");
-            Navigator.pop(
-              context,
-              MaterialPageRoute(
-                builder: (context) => HomePage(cameras),
-              ),
-            );
-          }
+        for (var val in re.keys) {
+          print("*********************\n" +
+              val.toString() +
+              "\n*********************");
         }
 
-        //widget._textToSpeech.speak("${re['detectedClass'] + "finded"}");
+        if (widget.search.isNotEmpty) {
+          if (widget.search == "${re['detectedClass']}" && confidence > 70) {
+            setState(() {
+              _finded = true;
+            });
+            if (_finded == true) {
+              widget._textToSpeech.speak("${re['detectedClass']}");
+              _finded = false;
+              const Duration(seconds: 3);
+            }
+          }
+        } else {
+          if (confidence >= 60) {
+            widget._textToSpeech.speak("${re['detectedClass']}");
+            const Duration(seconds: 3);
+          }
+        }
 
         if (widget.screenH / widget.screenW >
             widget.previewH / widget.previewW) {
@@ -113,10 +115,4 @@ class _BndBoxState extends State<BndBox> {
       children: _renderBoxes(),
     );
   }
-
-/*s() {
-    return widget.results.map((e) {
-      _textToSpeech.speak("${e['detectedClass']}");
-    });
-  }*/
 }

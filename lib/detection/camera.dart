@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:flutter_tflite/flutter_tflite.dart';
 import 'package:object_detection/tts/text_to_speech.dart';
-import 'package:tflite/tflite.dart';
 import 'dart:math' as math;
 
 typedef void Callback(List<dynamic> list, int h, int w);
@@ -9,8 +9,6 @@ typedef void Callback(List<dynamic> list, int h, int w);
 class Camera extends StatefulWidget {
   final List<CameraDescription> cameras;
   final Callback setRecognitions;
-
-  //final String model;
 
   Camera(this.cameras, this.setRecognitions);
 
@@ -52,7 +50,7 @@ class _CameraState extends State<Camera> {
                   imageWidth: img.width,
                   imageMean: 127.5,
                   imageStd: 127.5,
-                  numResultsPerClass: 1,
+                  numResultsPerClass: 2,
                   threshold: 0.4,
                 ).then(
                   (recognitions) {

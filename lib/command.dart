@@ -9,6 +9,6 @@ class Utils {
   static void scanText(String rawText) {
     final text = rawText.toLowerCase();
 
-    if (text.contains(Command.goto)) ;
+    if (text.contains(Command.goto)) null;
   }
 }

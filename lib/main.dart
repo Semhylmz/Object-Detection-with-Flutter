@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
-import 'package:object_detection/views/onboard.dart';
+import 'package:object_detection/views/onboard_view/onboard.dart';
 import 'package:object_detection/views/splash_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,7 +19,6 @@ Future<void> main() async {
   }
 
   isViewed = sharedPreferences.getInt('onBoard');
-
   runApp(const MyApp());
 }
 
@@ -29,6 +28,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Barrier-Free Living',
+      debugShowCheckedModeBanner: true,
       theme: ThemeData(
         brightness: Brightness.dark,
       ),
