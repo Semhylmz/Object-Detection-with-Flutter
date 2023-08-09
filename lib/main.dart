@@ -1,39 +1,21 @@
-import 'dart:async';
+import 'package:barrier_free_life/notifier/camera_notifier.dart';
+import 'package:barrier_free_life/notifier/speech_to_text.dart';
+import 'package:barrier_free_life/notifier/text_to_speech.dart';
+import 'package:barrier_free_life/notifier/tflite_notifier.dart';
 import 'package:flutter/material.dart';
-import 'package:camera/camera.dart';
-import 'package:object_detection/views/onboard_view/onboard.dart';
-import 'package:object_detection/views/splash_page.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-List<CameraDescription>? cameras;
-int? isViewed;
+import 'package:provider/provider.dart';
+import 'my_app.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
-  try {
-    cameras = await availableCameras();
-  } on CameraException catch (e) {
-    print('Error: $e.code\nError Message: $e.message');
-  }
-
-  isViewed = sharedPreferences.getInt('onBoard');
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Barrier-Free Living',
-      debugShowCheckedModeBanner: true,
-      theme: ThemeData(
-        brightness: Brightness.dark,
-      ),
-      home: isViewed == 1 ? const SplashPage() : const OnBoardPage(),
-    );
-  }
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_) => SpeechToTextNotifier()),
+      ChangeNotifierProvider(create: (_) => TextToSpeechNotifier()),
+      ChangeNotifierProvider(create: (_) => CameraNotifier()),
+      ChangeNotifierProvider(create: (_) => TfliteNotifier()),
+    ],
+    child: const MyApp(),
+  ));
 }
