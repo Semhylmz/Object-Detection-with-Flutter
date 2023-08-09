@@ -9,7 +9,10 @@ import 'widgets/camera_widget.dart';
 import 'dart:math' as math;
 
 class CameraPage extends StatefulWidget {
-  const CameraPage({super.key, required this.cameraController});
+  const CameraPage({
+    super.key,
+    required this.cameraController,
+  });
 
   final CameraController cameraController;
 
@@ -40,6 +43,7 @@ class _CameraPageState extends State<CameraPage> {
               GestureDetector(
                 onTap: () {
                   context.goNamed('home');
+                  valueTflite.changeFindState(value: false);
                 },
                 child: Container(
                   color: colorBg.withOpacity(0.1),

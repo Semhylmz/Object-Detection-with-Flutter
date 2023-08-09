@@ -12,7 +12,7 @@ class TextToSpeechNotifier with ChangeNotifier {
     await tts.awaitSpeakCompletion(true);
   }
 
-  void speakText({required String text}) async {
+  Future<void> speakMsg({required String text}) async {
     await tts.speak(text);
     notifyListeners();
   }

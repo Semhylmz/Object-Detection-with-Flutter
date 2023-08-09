@@ -24,7 +24,7 @@ class CameraNotifier with ChangeNotifier {
     final tfliteNotifier = Provider.of<TfliteNotifier>(context, listen: false);
     _cameraController = CameraController(
       _cameras[0],
-      ResolutionPreset.max,
+      ResolutionPreset.low,
     );
     _cameraController.initialize().then(
       (_) {
@@ -51,5 +51,6 @@ class CameraNotifier with ChangeNotifier {
       },
     );
     _cameraDescription = _cameraController.description;
+    notifyListeners();
   }
 }

@@ -7,7 +7,8 @@ class TfliteNotifier with ChangeNotifier {
   late List<dynamic> _recognitions;
   int _imageHeight = 0;
   int _imageWidth = 0;
-  late bool _isDetecting = false;
+  bool _isDetecting = false;
+  bool _isFind = false;
 
   List<dynamic> get recognitions => _recognitions;
 
@@ -16,6 +17,13 @@ class TfliteNotifier with ChangeNotifier {
   int get imageWidth => _imageWidth;
 
   bool get isDetecting => _isDetecting;
+
+  bool get isFind => _isFind;
+
+  void changeFindState({required bool value}) {
+    _isFind = value;
+    notifyListeners();
+  }
 
   Future<void> initTfliteNotifier() async {
     _recognitions = [];
@@ -41,19 +49,18 @@ class TfliteNotifier with ChangeNotifier {
       threshold: 0.4,
     ).then(
       (value) {
-        if (value == null) {
-          return;
-        }
-        setRecognitions(value, img.height, img.width);
-        _isDetecting = false;
+        value == null
+            ? null
+            : addRecognitions(recognitions, imageHeight, imageWidth);
       },
     );
   }
 
-  setRecognitions(recognitions, imageHeight, imageWidth) {
+  void addRecognitions(recognitions, imageHeight, imageWidth) {
     _recognitions = recognitions;
     _imageHeight = imageHeight;
     _imageWidth = imageWidth;
+    _isDetecting = false;
     notifyListeners();
   }
 }

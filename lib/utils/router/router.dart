@@ -38,12 +38,11 @@ final appRoute = GoRouter(
       path: '/camera',
       name: 'camera',
       builder: (context, state) {
-        return Consumer<CameraNotifier>(
-            builder: (context, valueCameraNotifier, child) {
-          return CameraPage(
-            cameraController: valueCameraNotifier.cameraController,
-          );
-        });
+        final valueCameraNotifier =
+            Provider.of<CameraNotifier>(context, listen: false);
+        return CameraPage(
+          cameraController: valueCameraNotifier.cameraController,
+        );
       },
     ),
   ],

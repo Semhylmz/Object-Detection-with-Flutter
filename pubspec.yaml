@@ -45,6 +45,7 @@ dependencies:
   tflite_flutter: ^0.10.1
   tflite_flutter_helper_plus: ^0.0.2
   path_provider: any
+  intl: any
 
 dev_dependencies:
   flutter_test:

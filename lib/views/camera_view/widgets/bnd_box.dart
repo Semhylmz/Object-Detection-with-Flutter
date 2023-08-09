@@ -1,7 +1,10 @@
 import 'package:barrier_free_life/constants/color.dart';
+import 'package:barrier_free_life/notifier/speech_to_text.dart';
+import 'package:barrier_free_life/notifier/text_to_speech.dart';
+import 'package:barrier_free_life/notifier/tflite_notifier.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
-import 'package:flutter_tts/flutter_tts.dart';
+import 'package:provider/provider.dart';
 
 class BndBox extends StatefulWidget {
   final List<dynamic> results;
@@ -37,7 +40,20 @@ class _BndBoxState extends State<BndBox> {
         var h0 = re["rect"]["h"];
 
         confidence = double.parse("${re['confidenceInClass'] * 100}");
-        confidence >= 60 ? FlutterTts().speak(re["detectedClass"]) : null;
+        confidence >= 60
+            ? context.watch<TfliteNotifier>().isFind
+                ? re["detectedClass"].contains(
+                        context.watch<SpeechToTextNotifier>().recognizeWord)
+                    ? context.watch<TextToSpeechNotifier>().speakMsg(
+                        text:
+                            '${context.watch<SpeechToTextNotifier>().recognizeWord} finded')
+                    : context
+                        .watch<TextToSpeechNotifier>()
+                        .speakMsg(text: 'searching')
+                : context
+                    .watch<TextToSpeechNotifier>()
+                    .speakMsg(text: re["detectedClass"])
+            : null;
 
         if (widget.screenH / widget.screenW >
             widget.previewH / widget.previewW) {

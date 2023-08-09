@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       ),
       //home: const SplashPage(),
       routerConfig: appRoute,
-      //routerDelegate: appRouter.routerDelegate,
+      //routerDelegate: appRoute.routerDelegate,
     );
   }
 }

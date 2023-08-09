@@ -1,5 +1,7 @@
 import 'package:barrier_free_life/constants/color.dart';
 import 'package:barrier_free_life/notifier/camera_notifier.dart';
+import 'package:barrier_free_life/notifier/speech_to_text.dart';
+import 'package:barrier_free_life/notifier/text_to_speech.dart';
 import 'package:barrier_free_life/notifier/tflite_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -22,14 +24,22 @@ class _SplashPageState extends State<SplashPage> {
   void _displaySplash() async {
     /// todo welcome text speak
 
-    await Provider.of<TfliteNotifier>(context, listen: false)
-        .initTfliteNotifier()
+    await Provider.of<TextToSpeechNotifier>(context, listen: false)
+        .initTts()
         .then(
-          (_) => Provider.of<CameraNotifier>(context, listen: false)
-              .initCamera(context: context),
-        )
-        .then(
-          (_) => context.goNamed('home'),
+          (_) => Provider.of<TfliteNotifier>(context, listen: false)
+              .initTfliteNotifier()
+              .then(
+                (_) => Provider.of<CameraNotifier>(context, listen: false)
+                    .initCamera(context: context),
+              )
+              .then(
+                (_) => Provider.of<SpeechToTextNotifier>(context, listen: false)
+                    .initStt(context),
+              )
+              .then(
+                (_) => context.goNamed('home'),
+              ),
         );
   }
 
