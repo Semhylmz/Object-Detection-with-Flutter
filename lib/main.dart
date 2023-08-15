@@ -4,7 +4,7 @@ import 'package:barrier_free_life/notifier/text_to_speech.dart';
 import 'package:barrier_free_life/notifier/tflite_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'my_app.dart';
+import 'views/my_app.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

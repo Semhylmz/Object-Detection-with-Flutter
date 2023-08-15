@@ -1,5 +1,5 @@
 import 'package:barrier_free_life/notifier/text_to_speech.dart';
-import 'package:barrier_free_life/safe_print.dart';
+import 'package:barrier_free_life/widgets/safe_print.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:provider/provider.dart';

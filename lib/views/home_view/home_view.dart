@@ -2,6 +2,7 @@ import 'package:barrier_free_life/constants/color.dart';
 import 'package:barrier_free_life/notifier/speech_to_text.dart';
 import 'package:barrier_free_life/notifier/text_to_speech.dart';
 import 'package:barrier_free_life/notifier/tflite_notifier.dart';
+import 'package:barrier_free_life/views/home_view/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +24,10 @@ class _HomePageState extends State<HomePage> {
         TextToSpeechNotifier>(
       builder: (context, valueTflite, valueStt, valueTts, child) => Scaffold(
         backgroundColor: colorBg,
+        appBar: const PreferredSize(
+          preferredSize: Size.fromHeight(kToolbarHeight),
+          child: MAppbar(),
+        ),
         body: Column(
           children: [
             HomeButton(

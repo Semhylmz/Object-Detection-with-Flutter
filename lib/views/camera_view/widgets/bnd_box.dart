@@ -2,6 +2,7 @@ import 'package:barrier_free_life/constants/color.dart';
 import 'package:barrier_free_life/notifier/speech_to_text.dart';
 import 'package:barrier_free_life/notifier/text_to_speech.dart';
 import 'package:barrier_free_life/notifier/tflite_notifier.dart';
+import 'package:barrier_free_life/widgets/safe_print.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import 'package:provider/provider.dart';
@@ -38,6 +39,8 @@ class _BndBoxState extends State<BndBox> {
         var w0 = re["rect"]["w"];
         var y0 = re["rect"]["y"];
         var h0 = re["rect"]["h"];
+
+        safePrint(re['detectedClass']);
 
         confidence = double.parse("${re['confidenceInClass'] * 100}");
         confidence >= 60
