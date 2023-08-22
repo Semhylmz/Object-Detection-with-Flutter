@@ -1,11 +1,17 @@
+import 'package:barrier_free_life/notifier/camera_notifier.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:math' as math;
 
-class CameraWidgets extends StatefulWidget {
-  const CameraWidgets({super.key, required this.cameraController});
+import 'package:provider/provider.dart';
 
-  final CameraController cameraController;
+class CameraWidgets extends StatefulWidget {
+  const CameraWidgets({
+    super.key,
+    //required this.cameraController,
+  });
+
+  //final CameraController cameraController;
 
   @override
   State<CameraWidgets> createState() => _CameraWidgetsState();
@@ -14,10 +20,13 @@ class CameraWidgets extends StatefulWidget {
 class _CameraWidgetsState extends State<CameraWidgets> {
   @override
   Widget build(BuildContext context) {
+    CameraNotifier cameraNotifier =
+        Provider.of<CameraNotifier>(context, listen: false);
+
     var tmp = MediaQuery.of(context).size;
     var screenH = math.max(tmp.height, tmp.width);
     var screenW = math.min(tmp.height, tmp.width);
-    tmp = widget.cameraController.value.previewSize ??
+    tmp = cameraNotifier.cameraController.value.previewSize ??
         MediaQuery.of(context).size;
 
     var previewH = math.max(tmp.height, tmp.width);
@@ -31,6 +40,6 @@ class _CameraWidgetsState extends State<CameraWidgets> {
         maxWidth: screenRatio > previewRatio
             ? screenH / previewH * previewW
             : screenW,
-        child: CameraPreview(widget.cameraController));
+        child: CameraPreview(cameraNotifier.cameraController));
   }
 }

@@ -1,4 +1,5 @@
 import 'package:barrier_free_life/constants/constans.dart';
+import 'package:barrier_free_life/widgets/safe_print.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_tflite/flutter_tflite.dart';
@@ -36,6 +37,7 @@ class TfliteNotifier with ChangeNotifier {
 
   void detectOnFrame({required CameraImage img}) {
     _isDetecting = true;
+    safePrint('detecting..');
     Tflite.detectObjectOnFrame(
       bytesList: img.planes.map((plane) {
         return plane.bytes;

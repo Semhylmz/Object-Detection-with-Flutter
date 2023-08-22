@@ -1,6 +1,5 @@
 import 'package:barrier_free_life/views/camera_view/widgets/bnd_box.dart';
 import 'package:barrier_free_life/notifier/tflite_notifier.dart';
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -11,10 +10,10 @@ import 'dart:math' as math;
 class CameraPage extends StatefulWidget {
   const CameraPage({
     super.key,
-    required this.cameraController,
+    //required this.cameraController,
   });
 
-  final CameraController cameraController;
+  //final CameraController cameraController;
 
   @override
   State<CameraPage> createState() => _CameraPageState();
@@ -30,9 +29,9 @@ class _CameraPageState extends State<CameraPage> {
         builder: (context, valueTflite, child) => SafeArea(
           child: Stack(
             children: [
-              CameraWidgets(
-                cameraController: widget.cameraController,
-              ),
+              const CameraWidgets(
+                  //cameraController: widget.cameraController,
+                  ),
               BndBox(
                 valueTflite.recognitions,
                 math.max(valueTflite.imageHeight, valueTflite.imageWidth),

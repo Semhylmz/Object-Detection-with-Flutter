@@ -3,8 +3,6 @@ import 'package:barrier_free_life/views/camera_view/camera_view.dart';
 import 'package:barrier_free_life/views/settings_view.dart';
 import 'package:barrier_free_life/views/splash_view.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
-import '../../notifier/camera_notifier.dart';
 import '../../widgets/not_found_view.dart';
 
 enum AppRoute {
@@ -41,11 +39,10 @@ final appRoute = GoRouter(
       path: '/camera',
       name: 'camera',
       builder: (context, state) {
-        final valueCameraNotifier =
-            Provider.of<CameraNotifier>(context, listen: false);
-        return CameraPage(
-          cameraController: valueCameraNotifier.cameraController,
-        );
+        //final valueCameraNotifier = Provider.of<CameraNotifier>(context, listen: false);
+        return const CameraPage(
+            //cameraController: valueCameraNotifier.cameraController,
+            );
       },
     ),
     GoRoute(
